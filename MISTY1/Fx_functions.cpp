@@ -21,10 +21,22 @@ uint16_t FI(uint16_t X, uint16_t KI)
 	return Y;
 }
 
-uint32_t FO(uint32_t X, uint64_t KO, uint64_t KI)
+uint32_t FO(uint32_t X, uint16_t KO[4], uint16_t KI[3])
 {
+	uint16_t L_0 = X >> 16;
+	uint16_t R_0 = uint16_t(X);
 
-	uint32_t Y;
+	uint16_t R = R_0;
+	uint16_t L = L_0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		uint16_t temp = R;
+		R = FI(L ^ KO[i], KI[i]) ^ R;
+		L = temp;
+	}
+
+	uint32_t Y = (((uint32_t)L ^ KO[3]) << 16) | R;
 	return Y;
 }
 
