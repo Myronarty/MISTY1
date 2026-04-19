@@ -36,14 +36,21 @@ uint32_t FO(uint32_t X, uint16_t KO[4], uint16_t KI[3])
 		L = temp;
 	}
 
-	uint32_t Y = (((uint32_t)L ^ KO[3]) << 16) | R;
+	uint32_t L_32 = L ^ KO[3];
+
+	uint32_t Y = (L_32 << 16) | R;
 	return Y;
 }
 
-uint32_t FL(uint32_t X, uint32_t KL)
+uint32_t FL(uint32_t X, uint16_t KL[2])
 {
+	uint16_t L = uint16_t(X >> 16);
+	uint16_t R = uint16_t(X);
 
-	uint32_t Y;
+	uint16_t Y_R = (L & KL[0]) ^ R;
+	uint32_t Y_L = L ^ (Y_R & KL[1]);
+
+	uint32_t Y = (Y_L << 16) | Y_R;
 	return Y;
 }
 
