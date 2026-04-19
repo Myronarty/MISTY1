@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="MISTY1/MISTY1.vcxproj" Id="21a9564a-ac66-4f97-9f37-c58b7e76ace6" />
+</Solution>
