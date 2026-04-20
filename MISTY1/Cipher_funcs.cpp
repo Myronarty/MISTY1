@@ -1,6 +1,6 @@
 #include "Cipher_funcs.h"
 
-uint64_t MISTY1(uint64_t P, uint16_t(&KL)[10][2], uint16_t(&KO)[8][4], uint16_t(&KI)[8][3])
+uint64_t EncryptBlock(uint64_t P, uint16_t(&KL)[10][2], uint16_t(&KO)[8][4], uint16_t(&KI)[8][3])
 {
 	uint32_t L = uint32_t(P >> 32);
 	uint32_t R = uint32_t(P);
@@ -30,7 +30,7 @@ uint64_t MISTY1(uint64_t P, uint16_t(&KL)[10][2], uint16_t(&KO)[8][4], uint16_t(
 	return C;
 }
 
-uint64_t deMISTY1(uint64_t C, uint16_t(&KL)[10][2], uint16_t(&KO)[8][4], uint16_t(&KI)[8][3])
+uint64_t DecryptBlock(uint64_t C, uint16_t(&KL)[10][2], uint16_t(&KO)[8][4], uint16_t(&KI)[8][3])
 {
 	uint32_t L = uint32_t(C >> 32);
 	uint32_t R = uint32_t(C);
