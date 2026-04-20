@@ -48,7 +48,7 @@ uint32_t FL(uint32_t X, uint16_t KL[2])
 	uint16_t R = uint16_t(X);
 
 	uint16_t Y_R = (L & KL[0]) ^ R;
-	uint32_t Y_L = L ^ (Y_R & KL[1]);
+	uint32_t Y_L = L ^ (Y_R | KL[1]);
 
 	uint32_t Y = (Y_L << 16) | Y_R;
 	return Y;

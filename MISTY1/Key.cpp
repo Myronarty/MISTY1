@@ -25,10 +25,9 @@ void getK(string file_name, uint16_t(&K)[8])
         return;
     }
 
-    for (int i = 0; i < 8; i++)
+    if (hex.length() >= 3 && hex.substr(0, 3) == "\xEF\xBB\xBF")
     {
-        string chunk = hex.substr(i * 4, 4);
-        K[i] = static_cast<uint16_t>(std::stoul(chunk, nullptr, 16));
+        hex = hex.substr(3);
     }
 
     file.close();
@@ -36,8 +35,6 @@ void getK(string file_name, uint16_t(&K)[8])
 
 void Expansion(uint16_t K[8], uint16_t(&KI)[8][3], uint16_t(&KO)[8][4], uint16_t(&KL)[10][2])
 {
-    cout << std::hex << std::setw(4) << std::setfill('0') << K[0] << K[1] << "\n";
-
     uint16_t K_[8] = { 0 };
 
     for (int i = 0; i < 7; i++)
@@ -45,11 +42,6 @@ void Expansion(uint16_t K[8], uint16_t(&KI)[8][3], uint16_t(&KO)[8][4], uint16_t
         K_[i] = FI(K[i], K[i + 1]);
     }
     K_[7] = FI(K[7], K[0]);
-
-    for (int i = 0; i < 8; i++)
-    {
-        cout << std::hex << K_[i];
-    }
 
     for (int i = 0; i < 8; i++)
     {
