@@ -5,8 +5,8 @@ uint16_t FI(uint16_t X, uint16_t KI)
 	uint16_t L_0 = X >> 7;
 	uint8_t R_0 = X & 0x7F;
 
-	uint8_t KI_L = KI & 0x7F;
-	uint16_t KI_R = X >> 7;
+	uint8_t KI_L = KI >> 9;
+	uint16_t KI_R = KI & 0x01FF;
 
 	uint16_t R_1 = S_9[L_0] ^ Extnd(R_0);
 	uint8_t L_1 = R_0;
