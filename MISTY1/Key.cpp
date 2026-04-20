@@ -1,6 +1,6 @@
 #include "Key.h"
 
-void getK(string file_name, uint64_t(&K)[2])
+void getK(string file_name, uint16_t(&K)[8])
 {
     if (!(file_name.ends_with(".txt")))
     {
@@ -18,9 +18,10 @@ void getK(string file_name, uint64_t(&K)[2])
 
     if (file.read(reinterpret_cast<char*>(K), sizeof(K)))
     {
-        K[0] = _byteswap_uint64(K[0]);
-        K[1] = _byteswap_uint64(K[1]);
-
+        for (int i = 0; i < 8; i++)
+        {
+            K[i] = _byteswap_ushort(K[i]);
+        }
     }
     else
     {
@@ -30,7 +31,11 @@ void getK(string file_name, uint64_t(&K)[2])
     file.close();
 }
 
-void Expansion(uint64_t K[2], uint16_t(&KL)[2], uint16_t(&KO)[4], uint16_t(&KI)[3])
+void Expansion(uint64_t K[2], RoundKeys(&Keys)[10])
 {
+    uint64_t K_[2] = { 0 };
+    uint64_t u1 = 0;
+    uint64_t u2 = 0;
 
+    for(int i = 0; i < )
 }

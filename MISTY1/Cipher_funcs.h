@@ -1,5 +1,5 @@
 #pragma once
-#include "Fx_functions.h"
+#include "Key.h"
 
 void MISTY1(uint64_t P, uint64_t K[2]);
 
