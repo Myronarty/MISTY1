@@ -8,7 +8,7 @@ void getK(string file_name, uint16_t(&K)[8])
         return;
     }
 
-    ifstream file(file_name, ios::binary);
+    ifstream file(file_name);
 
     if (!file.is_open())
     {
@@ -16,16 +16,19 @@ void getK(string file_name, uint16_t(&K)[8])
         return;
     }
 
-    if (file.read(reinterpret_cast<char*>(K), sizeof(K)))
+    string hex;
+    file >> hex;
+
+    if (hex.length() < 32)
     {
-        for (int i = 0; i < 8; i++)
-        {
-            K[i] = _byteswap_ushort(K[i]);
-        }
+        cerr << "Womp womp, key is too short!" << endl;
+        return;
     }
-    else
+
+    for (int i = 0; i < 8; i++)
     {
-        cerr << "Womp womp, failed to read key" << endl;
+        string chunk = hex.substr(i * 4, 4);
+        K[i] = static_cast<uint16_t>(std::stoul(chunk, nullptr, 16));
     }
 
     file.close();
@@ -33,6 +36,8 @@ void getK(string file_name, uint16_t(&K)[8])
 
 void Expansion(uint16_t K[8], uint16_t(&KI)[8][3], uint16_t(&KO)[8][4], uint16_t(&KL)[10][2])
 {
+    cout << std::hex << std::setw(4) << std::setfill('0') << K[0] << K[1] << "\n";
+
     uint16_t K_[8] = { 0 };
 
     for (int i = 0; i < 7; i++)
