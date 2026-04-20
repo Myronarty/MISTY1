@@ -24,12 +24,24 @@
     <ClCompile Include="S_boxes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cipher_funcs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Fx_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="S_boxes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cipher_funcs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Key.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

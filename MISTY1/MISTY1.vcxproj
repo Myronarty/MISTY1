@@ -127,12 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cipher_funcs.cpp" />
     <ClCompile Include="Fx_functions.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="S_boxes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cipher_funcs.h" />
     <ClInclude Include="Fx_functions.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="S_boxes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
