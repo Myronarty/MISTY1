@@ -59,3 +59,104 @@ uint64_t DecryptBlock(uint64_t C, uint16_t(&KL)[10][2], uint16_t(&KO)[8][4], uin
 
 	return P;
 }
+
+void MISTY1(string file_name, string out_name, string file_k)
+{
+	uint16_t K[8] = { 0 };
+	getK(file_k, K);
+
+	uint16_t KI[8][3] = { 0 };
+	uint16_t KO[8][4] = { 0 };
+	uint16_t KL[10][2]= { 0 };
+
+	Expansion(K, KI, KO, KL);
+
+	ifstream file(file_name, ios::binary);
+	ofstream outputFile(out_name, ios::binary);
+
+	if (!file || !outputFile)
+	{
+		cerr << "Womp womp, no such file" << endl;
+		return;
+	}
+
+	uint64_t P = 0;
+
+	while (file.read(reinterpret_cast<char*>(&P), sizeof(P)))
+	{
+		uint64_t C = EncryptBlock(P, KL, KO, KI);
+
+		outputFile.write(reinterpret_cast<char*>(&C), sizeof(C));
+
+		P = 0;
+	}
+
+	int bytes = file.gcount();
+
+	if (bytes > 0)
+	{
+		char* p_bytes = reinterpret_cast<char*>(&P);
+		for (int i = bytes; i < 8; i++)
+		{
+			p_bytes[i] = 0x00;
+		}
+
+		uint64_t C = EncryptBlock(P, KL, KO, KI);
+		outputFile.write(reinterpret_cast<char*>(&C), sizeof(C));
+	}
+
+	file.close();
+	outputFile.close();
+}
+
+void deMISTY1(string file_name, string out_name, string file_k)
+{
+	uint16_t K[8] = { 0 };
+	getK(file_k, K);
+
+	uint16_t KI[8][3] = { 0 };
+	uint16_t KO[8][4] = { 0 };
+	uint16_t KL[10][2] = { 0 };
+
+	Expansion(K, KI, KO, KL);
+
+	ifstream file(file_name, ios::binary);
+	ofstream outputFile(out_name, ios::binary);
+
+	if (!file || !outputFile)
+	{
+		cerr << "Womp womp, no such file" << endl;
+		return;
+	}
+
+	uint64_t C = 0;
+	uint64_t C_ = 0;
+
+	while (file.read(reinterpret_cast<char*>(&C), sizeof(C)))
+	{
+		while (file.read(reinterpret_cast<char*>(&C_), sizeof(C_)))
+		{
+			uint64_t P = DecryptBlock(C, KL, KO, KI);
+			outputFile.write(reinterpret_cast<char*>(&P), sizeof(P));
+
+			C = C_;
+		}
+
+		uint64_t P_ = DecryptBlock(C, KL, KO, KI);
+		char* p_bytes = reinterpret_cast<char*>(&P_);
+
+		int bytes = 8;
+		while (bytes > 0 && p_bytes[bytes - 1] == 0x00)
+		{
+			bytes--;
+		}
+
+		if (bytes > 0)
+		{
+			outputFile.write(p_bytes, bytes);
+		}
+	}
+
+	file.close();
+	outputFile.close();
+}
