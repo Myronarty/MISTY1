@@ -43,6 +43,11 @@ void Expansion(uint16_t K[8], uint16_t(&KI)[8][3], uint16_t(&KO)[8][4], uint16_t
 
     for (int i = 0; i < 8; i++)
     {
+        cout << std::hex << K_[i];
+    }
+
+    for (int i = 0; i < 8; i++)
+    {
         KO[i][0] = K[i % 8];
         KO[i][1] = K[(i + 2) % 8];
         KO[i][2] = K[(i + 7) % 8];
