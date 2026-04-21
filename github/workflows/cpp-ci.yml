@@ -1,0 +1,28 @@
+name: C++ CI with CMake and GTest
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libgtest-dev
+
+      - name: Configure CMake
+        # Ми вказуємо стандарт C++20, як ми домовлялися раніше
+        run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Run Tests
+        working-directory: build
+        # ctest автоматично запустить всі тести, додані через add_test у CMake
+        run: ctest --output-on-failure
