@@ -107,6 +107,8 @@ void MISTY1(string file_name, string out_name, string file_k)
 
 	file.close();
 	outputFile.close();
+
+	cout << "Encrypted " << file_name << " to " << out_name << " with " << file_k << "\n";
 }
 
 void deMISTY1(string file_name, string out_name, string file_k)
@@ -159,4 +161,6 @@ void deMISTY1(string file_name, string out_name, string file_k)
 
 	file.close();
 	outputFile.close();
+
+	cout << "Decrypted " << file_name << " to " << out_name << " with " << file_k << "\n";
 }

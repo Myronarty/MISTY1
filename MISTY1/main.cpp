@@ -2,14 +2,41 @@
 
 int main()
 {
-	string file = "D:/problems/term_6/crypto/test/document.pdf";
-	string out = "D:/problems/term_6/crypto/test/document.pdf.m";
-	string file_ = "D:/problems/term_6/crypto/test/document.pdf.m";
-	string out_ = "D:/problems/term_6/crypto/test/document__.pdf";
-	string k = "D:/problems/term_6/crypto/test/k.txt";
+	bool t = 1;
 
-	MISTY1(file, out, k);
-	deMISTY1(file_, out_, k);
-	//test for tests 1.2
+	while (t)
+	{
+		bool a;
+		cout << "Encrypt or decrypt (1/0) \n";
+		cin >> a;
+
+		if (a)
+		{
+			string file;
+			string out;
+			string k;
+			cout << "Path to your data (example: C:/user/data.txt): ";
+			cin >> file;
+			cout << "Path where to store your encrypted data (example: C:/user/data.txt.C): ";
+			cin >> out;
+			cout << "Path to your key (only .txt files) (example: C:/user/k.txt): ";
+			cin >> k;
+			MISTY1(file, out, k);
+		}
+		else
+		{
+			string file;
+			string out;
+			string k;
+			cout << "Path to your encrypted data (example: C:/user/data.txt.C): ";
+			cin >> file;
+			cout << "Path where to store your decrypted data (example: C:/user/data.txt): ";
+			cin >> out;
+			cout << "Path to your key (only .txt files) (example: C:/user/k.txt): ";
+			cin >> k;
+			deMISTY1(file, out, k);
+		}
+	}
+
 	return 0;
 }

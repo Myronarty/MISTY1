@@ -4,11 +4,10 @@ project(MISTY1)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Шукаємо встановлений GTest
+# Тимчасово вимикаємо GTest для локальної збірки
 find_package(GTest REQUIRED)
 include(GoogleTest)
 
-# Ваша основна бібліотека
 add_library(misty
     MISTY1/Cipher_funcs.cpp
     MISTY1/Fx_functions.cpp
@@ -17,11 +16,11 @@ add_library(misty
 )
 target_include_directories(misty PUBLIC MISTY1)
 
-# Виконуваний файл для тестів
-add_executable(unit_tests tests/test.cpp)
-# Лінкуємо вашу бібліотеку + GTest
-target_link_libraries(unit_tests PRIVATE misty GTest::gtest_main)
+add_executable(main_app MISTY1/main.cpp)
+target_link_libraries(main_app misty)
 
-# Вмикаємо можливість запуску через ctest
+# Тимчасово вимикаємо виконуваний файл тестів
+add_executable(unit_tests tests/test.cpp)
+target_link_libraries(unit_tests PRIVATE misty GTest::gtest_main)
 enable_testing()
 gtest_discover_tests(unit_tests)
