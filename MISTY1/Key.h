@@ -4,7 +4,6 @@
 #include "cmath"
 #include "vector"
 #include <fstream>
-#include <intrin.h>
 #include "Fx_functions.h"
 
 using namespace std;
