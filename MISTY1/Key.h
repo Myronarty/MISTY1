@@ -3,6 +3,7 @@
 #include "iostream"
 #include "cmath"
 #include "vector"
+#include <cstdint>
 #include <fstream>
 #include "Fx_functions.h"
 

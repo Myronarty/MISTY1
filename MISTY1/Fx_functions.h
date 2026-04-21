@@ -1,5 +1,6 @@
 #pragma once
 #include "S_boxes.h"
+#include <cstdint>
 
 uint16_t FI(uint16_t X, uint16_t KI);
 
