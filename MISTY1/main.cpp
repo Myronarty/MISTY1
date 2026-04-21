@@ -10,6 +10,6 @@ int main()
 
 	MISTY1(file, out, k);
 	deMISTY1(file_, out_, k);
-
+	//test for tests
 	return 0;
 }
